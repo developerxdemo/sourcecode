@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>WebSockets</title>
+        <meta name="description" content="Webworkers sample">
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="http://localhost/js/jquery.min.js"></script>
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    </head>
+    <body>
+
+        <!-- Add your site or application content here -->
+        <p>Hello Web Sockets</p>
+
+        <script>
+$( document ).ready(function() {
+
+    var SERVER = 'ws://localhost:8666/';
+
+    var webSocket = new WebSocket(SERVER);
+
+    /**
+    * when socket is opened
+    * we send a message
+    */
+    webSocket.onopen = function () {
+        console.log('Connection opened');
+        var dataToSend = $('#usertext').val();
+        console.log("Writing to server: " + dataToSend);
+        webSocket.send(JSON.stringify({ticker: dataToSend}));
+    };
+
+    /**
+    * when user press enter in textfield we sent the message
+    */
+    $('#usertext').keypress(function (event) {
+        var dataToSend = $('#usertext').val();
+        if (event.which == 13) {
+            $('#chattext').append(dataToSend + '\n');           
+            $('#usertext').val(""); 
+            console.log('Sending to server: ' + dataToSend);
+            webSocket.send(JSON.stringify({data: dataToSend}));
+        }
+    });
+
+
+    /**
+    * callback when message is received from server
+    */
+    webSocket.onmessage = function (msg) {
+        console.log('Response from server: ' + msg);
+        var prices = $.parseJSON(msg.data);
+        var html = "IBM: " + prices.ibm;
+        $('#chattext').html(html);
+    }
+
+          
+});
+        </script>
+	<h5>Web Sockets sample</h5>
+
+<textarea name="chattext" id="chattext" cols="40" rows="10"></textarea><br />
+<label for="usertext">Your answer</label><br />
+<input type="text" name="usertext" id="usertext" value="" placeholder="Write and press enter" />
+
+
+	
+  </body>
+</html>

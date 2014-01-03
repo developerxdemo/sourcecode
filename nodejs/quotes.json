@@ -1,0 +1,3 @@
+{ "_id" : { "$oid" : "52056e0401853f407ce977b0" }, "content" : "I am your father", "author" : "Darth Vader" }
+{ "_id" : { "$oid" : "52056e9001853f407ce977b2" }, "content" : "Why so serious?", "author" : "The Joker" }
+{ "_id" : { "$oid" : "52056ecc01853f407ce977b3" }, "content" : "I find your lack of faith disturbing", "author" : "Darth Vader" }

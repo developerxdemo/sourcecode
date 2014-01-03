@@ -1,0 +1,4 @@
+{ "_id" : { "$oid" : "521388649bccbedcccf3a63c" }, "artist" : "Iron Maiden", "song" : "Wasted Years", "album" : "Somewhere in Time", "rating" : 9 }
+{ "_id" : { "$oid" : "521388649bccbedcccf3a63d" }, "artist" : "Ktulu", "song" : "Orden Genético", "album" : "Orden Genético", "rating" : 8 }
+{ "_id" : { "$oid" : "521388649bccbedcccf3a63e" }, "artist" : "Death", "song" : "Voice of the Soul", "album" : "Scavenger of Human Sorrow", "rating" : 10 }
+{ "artist" : "Gorod", "song" : "Diverted Logic", "album" : "Proccess of a new Decline", "rating" : 9, "_id" : { "$oid" : "5213d74db7f613df07000002" }, "__v" : 0 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>WebSockets</title>
+        <meta name="description" content="Webworkers sample">
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="http://localhost/js/jquery.min.js"></script>
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    </head>
+    <body>
+
+        <!-- Add your site or application content here -->
+        <p>Hello Web Sockets</p>
+
+        <script>
+$( document ).ready(function() {
+
+    var SERVER = 'http://localhost:8666/';
+
+  var webSocket = io.connect(SERVER);
+
+  // I introduce myself to the server
+  webSocket.emit('myname', { name: 'Satan' });
+
+  /**
+  * If servers emit a message with 'fromserver' header
+  * we handle here.
+  */
+  webSocket.on('fromserver', function (data) {
+        console.log('Received from server: ' + data.msg);
+        $('#chattext').append('Server: ' + data.msg +'\n');
+  });
+
+
+    /**
+    * when user press enter in textfield we sent the message
+    */
+    $('#usertext').keypress(function (event) {
+        var dataToSend = $('#usertext').val();
+        if (event.which == 13) {
+            $('#chattext').append('(' + dataToSend +' sent)\n');          
+
+            console.log('Sending to server: ' + dataToSend);
+            webSocket.emit('fromclient', { msg: dataToSend });
+            $('#usertext').val(""); 
+        }
+    });
+          
+});
+        </script>
+	<h5>Web Sockets sample</h5>
+
+<textarea name="chattext" id="chattext" cols="40" rows="10"></textarea><br />
+<label for="usertext">Your answer</label><br />
+<input type="text" name="usertext" id="usertext" value="" placeholder="Write and press enter" />
+
+
+	
+  </body>
+</html>

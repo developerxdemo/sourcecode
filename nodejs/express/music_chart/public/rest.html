@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Add Songs</title>
+<script src="javascripts/jquery.min.js"></script>
+<script>
+$( document ).ready(function() {
+
+
+	$('#updatebutton').click(function () {
+
+		// POST with _method update == PUT for nodejs
+		$.post('/song/'+$('#update_id').val(), 
+			{
+			 '_method' : $('#update_method').val(),
+			 '_id' : 	$('#update_id').val(),
+			 'artist': $('#update_artist').val(),
+			 'song' : 	$('#update_song').val(),
+			 'album' : $('#update_album').val(),
+			 'rating': $('#update_rating').val()
+			}, 
+			function(data) {
+				alert("Response from server: " + data);
+			});
+		return false;
+		});
+
+
+	$('#deletebutton').click(function () {
+
+		// POST with _method delete == DELETE for nodejs
+		$.post('/song/'+$('#delete_id').val(), 
+			{
+			 '_method' : $('#delete_method').val(),
+			}, 
+			function(data) {
+				alert("Response from server: " + data);
+			});
+		return false;
+		});
+
+
+});
+</script>
+</head>
+<nav>
+	<a href='/songs/'>List</a> | 
+	<a href='#create'>Add</a> | 
+	<a href='#update'>Update</a> | 
+	<a href='#delete'>Delete</a>
+</nav>
+<body>
+<section id="create">
+<h1>CREATE</h1>
+<form method="POST" action="/song/add" enctype="application/x-www-form-urlencoded">
+<p>Artist: <input type="text" name="artist" id="artist" size="25" required/>
+</p>
+<p>Song: <input type="text" name="song" id="song" size="25" required/>
+</p>
+<p>Album: <input type="text" name="album" id="album" size="25" required/>
+</p>
+<p>Rating: <input type="text" name="rating" id="rating" size="2" required/>
+</p>
+<p>
+<input type="submit" name="submit" id="submit" value="Submit"/>
+</p>
+</form>
+</section>
+<hr />
+
+<h1>UPDATE</h1>
+
+<section id="update">
+<form method="POST" action="/song/" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="_method" id="update_method" value="put" />
+<p>_id<input type="text" name="_id" id="update_id" value="" /></p>
+<p>Artist: <input type="text" name="artist" id="update_artist" size="25" required/>
+</p>
+<p>Song: <input type="text" name="song" id="update_song" size="25" required/>
+</p>
+<p>Album: <input type="text" name="album" id="update_album" size="25" required/>
+</p>
+<p>Rating: <input type="text" name="rating" id="update_rating" size="2" required/>
+</p>
+<p>
+<input type="button" name="update" id="updatebutton" value="Update"/>
+</p>
+</form>
+</section>
+
+<h1>DELETE</h1>
+
+<section id="delete">
+<form method="POST" action="/song/" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="_method" id="delete_method" value="delete" />
+<p>_id<input type="text" name="_id" id="delete_id" value="" /></p>
+<p>
+<input type="button" name="delete" id="deletebutton" value="Delete"/>
+</p>
+</form>
+
+</section>
+</body>
